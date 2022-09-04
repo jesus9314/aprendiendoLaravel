@@ -1,9 +1,16 @@
 @extends('layouts.plantilla')
-@section('title', 'Curso' . $curso)
+@section('title', 'Curso ' . $curso->nombre)
 @section('content')
-    @if ($categoria)
-        <h1><?= "Bienvenido al curso $curso, de la categoria $categoria" ?></h1>
-    @else
-        <h1><?= "Bienvenido al curso $curso" ?></h1>
-    @endif
+    <h1>Bienvenido al curso {{$curso->nombre}}</h1>
+    <a href="{{route('cursos.index')}}">Volver a cursos</a>
+    <br>
+    <a href="{{route('cursos.edit',$curso)}}">Editar Curso</a>
+    <p>Categoria: <strong>{{$curso->categoria}}</strong></p>
+    <p>{{$curso->description}}</p>
+    <br>
+    <form action="{{route('cursos.destroy', $curso)}}" method="post">
+        @csrf
+        @method('delete')
+        <button type="submit">Eliminar</button>
+    </form>
 @endsection
